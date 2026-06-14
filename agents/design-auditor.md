@@ -39,6 +39,11 @@ uniform radius/shadow/padding · emoji-as-icons · bento-for-its-own-sake · ove
 
 - **Blank-on-load**: content hidden via `opacity:0`/`visibility:hidden` waiting on JS/IntersectionObserver
   to reveal it. Grep the CSS for `opacity: 0` and JS for visibility class-toggling.
+- **Functional change**: the redesign altered logic, event handlers, data/API calls, routing, or the
+  DOM hooks JS depends on (ids/classes/`data-*`/structure). A visual redesign must be CSS/markup only.
+- **Not responsive**: horizontal overflow or broken layout at 320 / 768 / 1024 / 1440, or a separate
+  mobile build instead of one adaptive codebase. Check for media queries / fluid units and a
+  collapsing nav + scrollable wide tables.
 - Absolute asset paths (`/styles.css`) that break under `file://`.
 - Above-the-fold not rendered on first paint without JS.
 

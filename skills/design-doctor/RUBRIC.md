@@ -31,6 +31,10 @@ A blank-on-load page (content hidden behind JS reveal) caps at 2 regardless of h
 
 - Any AI tell from `ANTI-AI.md` present (aurora, gradient text, glow-bento, rainbow, etc.)
 - Any content hidden behind a JS scroll-reveal (`opacity:0` until JS)
+- **Functionality changed/broken** — logic, handlers, data, routing, or JS DOM hooks altered (the
+  redesign must be CSS/presentation only)
+- **Not responsive** — horizontal overflow or broken layout at any of 320 / 768 / 1024 / 1440, or a
+  separate mobile build instead of one adaptive codebase
 - Absolute asset paths that break `file://`, or stale-cache showing the old version
 - Above-the-fold not fully rendered on first paint
 

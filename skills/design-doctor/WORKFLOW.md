@@ -37,9 +37,15 @@ For each surface, in priority order:
 1. **Read** current implementation.
 2. **Build** with the proven primitives in `reference/` and the chosen tokens. Implement the
    signature element + the page's product visual (see `reference/patterns.md`).
-3. **Preserve behavior** — routing, data fetching, props, state, and copy stay intact. This is a
-   visual rebuild, not a refactor. If working in a JS app, never break the DOM hooks the app uses;
-   grep for `getElementById`/`querySelector`/class hooks first.
+3. **Preservation contract — change design only, never functionality.** This is a *visual* rebuild,
+   not a refactor. CSS and presentational markup only. Before editing a real app:
+   - grep for the hooks JS relies on (`getElementById`, `querySelector(All)`, `data-*`, framework
+     refs, event bindings) and keep every id/class/attribute/structure they depend on intact.
+   - do NOT change logic, handlers, data fetching, API calls, routing, state, validation, or copy.
+   - prefer adding/altering classes and styles over restructuring the DOM; if a visual goal needs a
+     behavioral change, STOP and ask rather than guessing.
+   - for a standalone mock (no backend), it's fine to author markup freely — but keep any element
+     hooks the real app would use so the redesign can drop in.
 4. **Interaction states** — hover/focus/active + a real `:focus-visible` ring on everything.
 5. Move on; carry tokens forward so consistency compounds.
 
@@ -79,7 +85,19 @@ There should be none on real content.
   exact URL. Don't kill the user's processes without asking.
 - Keep a backup of the prior version (`*.bak`) when doing a bold rewrite, so before/after is easy.
 
-## §8 Iterate
+## §9 Responsive — desktop AND mobile in one codebase (never a separate mobile build)
+
+Every surface must work at both ends from the same code:
+- **Mobile-first**: base styles target small screens; layer complexity up with `min-width` media
+  queries (or fluid `clamp()`/`auto-fit` grids that need few breakpoints).
+- **Test widths**: 320, 375, 768, 1024, 1440. No horizontal overflow at any of them.
+- **Reflow, don't shrink**: multi-column grids collapse to fewer columns; wide data tables get a
+  horizontal-scroll wrapper (`overflow-x:auto`) rather than squishing.
+- **Touch**: interactive targets ≥ ~44px; nav collapses to a working menu; no hover-only actions.
+- **Fluid type & space**: prefer `clamp()` so headings and rhythm scale without dozens of overrides.
+- **Verify**: state the widths you checked. A page that only works on desktop is not done.
+
+## §10 Iterate
 
 Present before→after concisely. Ask for a rating. Push the lowest-scoring surfaces further. When a
 user says "still looks AI," return to `ANTI-AI.md` and check which banned pattern slipped in.

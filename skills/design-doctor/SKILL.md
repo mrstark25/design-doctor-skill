@@ -40,6 +40,16 @@ glowing glass cards) is instantly recognizable and reads as cheap. Design Doctor
    content behind a JS scroll-reveal (`opacity:0` until an IntersectionObserver fires). Above-the-
    fold especially must render immediately. Animate **from a visible baseline** with pure CSS, or
    not at all. (`WORKFLOW.md` §6)
+9. **CHANGE DESIGN ONLY — NEVER THE FUNCTIONAL PART.** This is a *visual* redesign. Touch CSS and
+   presentational markup only. Do **not** alter or remove logic, event handlers, data fetching, API
+   calls, routing, state, form behavior, or the DOM hooks the app depends on (ids, classes,
+   `data-*`, element structure that JS queries). On a real app, grep for those hooks first and
+   restyle *around* them. If a visual change would require a behavioral change, stop and ask.
+   (`WORKFLOW.md` §4 — Preservation contract)
+10. **ONE RESPONSIVE CODEBASE — DESKTOP AND MOBILE AT ONCE.** Never a separate mobile version. Build
+    fluid, mobile-first layouts that adapt at 320 / 375 / 768 / 1024 / 1440 with no horizontal
+    overflow, readable type, and ≥44px touch targets. Verify both ends before declaring done.
+    (`WORKFLOW.md` §9)
 
 ## Workflow (full detail in `WORKFLOW.md`)
 
