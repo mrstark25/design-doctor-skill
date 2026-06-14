@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Starter — Editorial Trading Desk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- relative path + cache-bust; bump ?v= on every change -->
+    <link rel="stylesheet" href="./editorial-swiss.css?v=1" />
+  </head>
+  <body>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>SIGNAL <i class="up">+2.4%</i></span><span>NOISE <i class="down">−0.6%</i></span>
+        <span>SIGNAL <i class="up">+2.4%</i></span><span>NOISE <i class="down">−0.6%</i></span>
+      </div>
+    </div>
+
+    <header class="masthead">
+      <a class="wordmark" href="#">Brand<span>Mark</span><sup>®</sup></a>
+      <nav class="nav"><a href="#">Product</a><a href="#">Pricing</a><a href="#">Docs</a></nav>
+      <a class="btn" href="#">Launch</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="idx">— A committed direction</p>
+        <h1 class="display">Designed, not <em>generated</em>.</h1>
+        <p class="standfirst">Replace this copy with the real, content-accurate headline and standfirst. Lead with what the page is about — and a functional element if it's a product page.</p>
+        <dl class="figures">
+          <div><dt>Metric</dt><dd><span data-count="48.2" data-prefix="$" data-suffix="B" data-dec="1">$48.2<small>B</small></span></dd></div>
+          <div><dt>Sources</dt><dd><span data-count="90" data-suffix="+">90<small>+</small></span></dd></div>
+          <div><dt>Chains</dt><dd><span data-count="9" data-pad="2">09</span></dd></div>
+          <div><dt>Custody</dt><dd>Self</dd></div>
+        </dl>
+      </section>
+
+      <section class="section">
+        <header class="section-head"><p class="idx">01</p><h2 class="section-title">A ruled feature grid.</h2></header>
+        <div class="grid-rule">
+          <article class="cell"><p class="tag">One</p><h3>Hairline cells</h3><p>No glow, no glass — structure and type carry it.</p></article>
+          <article class="cell"><p class="tag">Two</p><h3>Tabular data</h3><p>Numbers align; figures read like an instrument.</p></article>
+          <article class="cell"><p class="tag">Three</p><h3>Real states</h3><p>Hover, focus, and focus-visible everywhere.</p></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <header class="section-head"><p class="idx">02</p><h2 class="section-title">A real data table.</h2></header>
+        <table class="data-table">
+          <thead><tr><th>Item</th><th>Type</th><th>24h</th></tr></thead>
+          <tbody>
+            <tr><td>Alpha</td><td>L1</td><td><span class="delta up">+3.1%</span></td></tr>
+            <tr><td>Beta</td><td>L2</td><td><span class="delta down">−0.4%</span></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-cols">
+        <nav><h4>Product</h4><a href="#">Overview</a><a href="#">Changelog</a></nav>
+        <nav><h4>Company</h4><a href="#">About</a><a href="#">Careers</a></nav>
+        <nav><h4>Resources</h4><a href="#">Docs</a><a href="#">Status</a></nav>
+        <nav><h4>Social</h4><a href="#">X</a><a href="#">GitHub</a></nav>
+      </div>
+    </footer>
+
+    <!-- Only JS-driven visual: count-up. Content is fully visible without it. -->
+    <script>
+      (() => {
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const fmt = (n, dec) => dec ? n.toFixed(dec) : (Math.abs(n) >= 1000 ? Math.round(n).toLocaleString() : Math.round(n));
+        const run = (el) => {
+          const target = parseFloat(el.dataset.count), dec = +(el.dataset.dec || 0);
+          const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+          const render = v => `${pre}${fmt(v, dec)}${suf ? `<small>${suf}</small>` : ''}`;
+          if (reduced) return void (el.innerHTML = render(target));
+          const t0 = performance.now(), dur = 1100;
+          const step = (now) => { const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+            el.innerHTML = render(target * e); if (p < 1) requestAnimationFrame(step); else el.innerHTML = render(target); };
+          requestAnimationFrame(step);
+        };
+        const els = document.querySelectorAll('[data-count]');
+        if (reduced || !('IntersectionObserver' in window)) els.forEach(run);
+        else { const o = new IntersectionObserver((es) => es.forEach(x => { if (x.isIntersecting) { run(x.target); o.unobserve(x.target); } }), { threshold: 0.6 });
+          els.forEach(e => o.observe(e)); }
+      })();
+    </script>
+  </body>
+</html>
