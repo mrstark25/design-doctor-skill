@@ -27,6 +27,10 @@ If you catch yourself reaching for any of these, stop. They are the fingerprints
    unless the content genuinely earns a bento composition.
 10. **Over-animation** — things flying in from every direction. Banned. Motion clarifies; it doesn't
     perform.
+11. **Generated-looking 3D** — a WebGL particle nebula/starfield behind the hero, a rotating
+    iridescent gradient blob/metaball, a glassy spinning torus-knot with bloom, or a full-bleed
+    canvas the text floats on. This is the aurora blob reincarnated in Three.js. Banned. 3D is
+    allowed only as **disciplined, token-driven depth over a real fallback** — see `3D.md`.
 
 ## The Fatal Bug — NEVER hide content behind JS
 
@@ -54,6 +58,8 @@ scrolls (or forever, if JS is cached/slow/disabled).
 8. Depth via layered surfaces + soft shadow, used sparingly.
 9. Subtle, purposeful, compositor-friendly motion (transform/opacity), reduced-motion safe.
 10. Real interaction states (hover/focus/active/focus-visible) on every interactive element.
+11. If 3D is used: it's disciplined depth (token-driven, hairline, pointer-aware), it sits over a
+    real visible fallback, and the page is complete without it. (`3D.md`)
 
 ## Quick self-audit before declaring done
 
@@ -65,3 +71,5 @@ scrolls (or forever, if JS is cached/slow/disabled).
 - [ ] Is there a signature element and a designed centerpiece?
 - [ ] Do hover/focus-visible states exist everywhere?
 - [ ] Does it respect `prefers-reduced-motion`?
+- [ ] If there's a `<canvas>`/WebGL: is it disciplined (not a nebula/blob), token-driven, over a
+      real fallback, lazy + pinned, and is the page complete with WebGL off? (`3D.md`)

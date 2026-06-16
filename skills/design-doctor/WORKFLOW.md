@@ -85,6 +85,27 @@ There should be none on real content.
   exact URL. Don't kill the user's processes without asking.
 - Keep a backup of the prior version (`*.bak`) when doing a bold rewrite, so before/after is easy.
 
+## §8 The 3D layer (optional — read `3D.md` before adding any canvas)
+
+3D is opt-in and easy to get wrong: the lazy version (particle nebula, gradient blob, glassy spinning
+torus) is itself an AI tell. Add it only when depth communicates something real.
+
+- **Justify it first.** A product centerpiece as an object, a spatial data surface, or restrained
+  pointer-parallax depth — yes. Ambience behind copy — no. When unsure, ship 2D.
+- **Fallback contract (extends §6).** The `<canvas>` is additive only. It sits over a real,
+  visible-by-default DOM/SVG element that already conveys the point. The page must be complete and
+  on-message with WebGL off, JS off, the CDN blocked, or reduced-motion on. Reserve the canvas
+  dimensions so there's no layout shift and never a blank rectangle.
+- **Use `reference/three-scene.js`.** It is token-driven (reads `--ink`/`--bg`/`--faint`), lazy
+  (imports Three.js only on viewport-intersect), version-pinned, paused offscreen/on hidden tabs,
+  renders a single static frame under reduced-motion, and disposes fully on teardown. Wire it with
+  `<canvas data-dd3d="wireframe|lattice" data-accent="--ink" aria-hidden="true">` + a module script,
+  or `mountScene(canvas, opts)` programmatically (call `handle.destroy()` on unmount/route change).
+- **Stay token-driven and hairline.** Monochrome + one accent, edges/points over heavy shaded
+  solids, no rainbow/iridescent shaders, no bloom-stack, no perpetual demo spin.
+- **Verify it.** Confirm the page is complete with WebGL disabled (or JS off), `aria-hidden` on the
+  canvas, reduced-motion = static, no layout shift, steady framerate. State what you checked.
+
 ## §9 Responsive — desktop AND mobile in one codebase (never a separate mobile build)
 
 Every surface must work at both ends from the same code:

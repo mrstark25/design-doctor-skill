@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <!-- relative path + cache-bust; bump ?v= on every change -->
-    <link rel="stylesheet" href="./editorial-swiss.css?v=1" />
+    <link rel="stylesheet" href="./editorial-swiss.css?v=2" />
   </head>
   <body>
     <div class="ticker" aria-hidden="true">
@@ -48,7 +48,27 @@
       </section>
 
       <section class="section">
-        <header class="section-head"><p class="idx">02</p><h2 class="section-title">A real data table.</h2></header>
+        <header class="section-head"><p class="idx">02</p><h2 class="section-title">A 3D centerpiece — additive depth over a real fallback.</h2></header>
+        <figure class="centerpiece">
+          <!-- Real, visible-by-default fallback. This is what shows with WebGL off,
+               JS off, or the Three.js CDN blocked. It must look finished on its own. -->
+          <div class="fallback">
+            <svg viewBox="0 0 200 200" role="img" aria-label="Wireframe product object">
+              <polygon class="fig-line" points="100,18 171,59 171,141 100,182 29,141 29,59" />
+              <path class="fig-line" d="M100,18 L100,182 M29,59 L171,141 M171,59 L29,141" />
+              <path class="fig-line" d="M29,59 L100,60 L171,59 M100,182 L100,118 M29,141 L58,118 M171,141 L142,118" />
+              <polygon class="fig-accent" points="100,60 142,118 58,118" />
+            </svg>
+          </div>
+          <span class="cap">Fig. 01 — wireframe object</span>
+          <!-- Additive WebGL depth only; aria-hidden because the fallback carries the meaning.
+               three-scene.js is lazy + pinned, token-driven, reduced-motion safe, self-disposing. -->
+          <canvas data-dd3d="wireframe" data-accent="--ink" aria-hidden="true"></canvas>
+        </figure>
+      </section>
+
+      <section class="section">
+        <header class="section-head"><p class="idx">03</p><h2 class="section-title">A real data table.</h2></header>
         <table class="data-table">
           <thead><tr><th>Item</th><th>Type</th><th>24h</th></tr></thead>
           <tbody>
@@ -68,7 +88,11 @@
       </div>
     </footer>
 
-    <!-- Only JS-driven visual: count-up. Content is fully visible without it. -->
+    <!-- Optional 3D layer: enhances the centerpiece, never required. Auto-wires
+         any <canvas data-dd3d>. Safe to omit — the static fallback stays. -->
+    <script type="module" src="./three-scene.js?v=1"></script>
+
+    <!-- Only other JS-driven visual: count-up. Content is fully visible without it. -->
     <script>
       (() => {
         const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;

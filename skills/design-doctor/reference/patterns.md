@@ -88,6 +88,63 @@ else { const o = new IntersectionObserver((es)=>es.forEach(x=>{ if(x.isIntersect
   els.forEach(e=>o.observe(e)); }
 ```
 
+## 3D centerpiece over a static fallback (optional — read `3D.md` first)
+
+The `<canvas>` is additive depth ONLY. It sits over a real, visible-by-default fallback that already
+conveys the point, so the page is complete with WebGL off, JS off, or the CDN blocked. Dimensions
+are reserved (`aspect-ratio`) → no layout shift, never a blank box. `three-scene.js` is token-driven,
+lazy (imports Three.js on viewport-intersect), version-pinned, reduced-motion safe (static frame),
+and self-disposing.
+
+```html
+<figure class="centerpiece">
+  <div class="fallback">           <!-- finished on its own; shows if 3D never boots -->
+    <svg viewBox="0 0 200 200" role="img" aria-label="Wireframe product object">
+      <polygon class="fig-line" points="100,18 171,59 171,141 100,182 29,141 29,59" />
+      <path class="fig-line" d="M100,18 L100,182 M29,59 L171,141 M171,59 L29,141" />
+      <polygon class="fig-accent" points="100,60 142,118 58,118" />
+    </svg>
+  </div>
+  <span class="cap">Fig. 01 — wireframe object</span>
+  <canvas data-dd3d="wireframe" data-accent="--ink" aria-hidden="true"></canvas>
+</figure>
+<script type="module" src="./three-scene.js?v=1"></script>
+```
+Scenes: `wireframe` (slow-turning edge-rendered product object) and `lattice` (sparse, gridded depth
+field that parallaxes to the pointer). Both inherit the page tokens — monochrome + one accent. For a
+component/SPA, call `mountScene(canvas, opts)` and `handle.destroy()` on unmount. Do NOT ship a
+particle nebula, gradient blob, bloom-stack, or a full-bleed canvas behind floating text.
+
+## Dark gallery card grid (Lafys-style — direction #10)
+
+Image-forward cards on a warm near-black canvas; color comes from the thumbnails, not a brand accent.
+Hairline borders, hover lift + image scale, avatar+tag metadata. Pair with one oversized type moment.
+
+```css
+.gallery { display: grid; gap: clamp(0.9rem, 2vw, 1.4rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+.g-card { border: 1px solid var(--rule); border-radius: 12px; overflow: hidden;
+  background: var(--bg-2); transition: transform .35s var(--ease), border-color .35s var(--ease); }
+.g-card:hover { transform: translateY(-4px); border-color: var(--rule-2); }
+.g-thumb { aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg); }
+.g-thumb img { width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .5s var(--ease); }
+.g-card:hover .g-thumb img { transform: scale(1.04); }
+.g-meta { display: flex; align-items: center; gap: .6rem; padding: .8rem .9rem; }
+.g-meta .avatar { width: 1.4rem; height: 1.4rem; border-radius: 50%; flex: none; }
+.g-title { font-weight: 600; color: var(--paper); font-size: .92rem; }
+.g-tags { display: flex; gap: .35rem; flex-wrap: wrap; padding: 0 .9rem .85rem; }
+.g-tag { font-size: .7rem; letter-spacing: .04em; color: var(--faint);
+  border: 1px solid var(--rule); border-radius: 999px; padding: .15rem .55rem; }
+.g-badge { margin-left: auto; font-size: .68rem; color: oklch(70% 0.16 250); }  /* the only accent */
+/* the oversized type punctuation (a section word / pagination) */
+.huge { font-family: var(--display); font-weight: 600; letter-spacing: -0.03em;
+  font-size: clamp(4rem, 8vw, 11rem); line-height: 0.9; color: var(--paper); }
+```
+Tokens reuse the dark system (`--bg`/`--bg-2`/`--rule`/`--paper`/`--faint`). Keep the only saturated
+color in the "Premium" badge; everything else is content imagery on near-black. `loading="lazy"` +
+explicit `width`/`height` on thumbnails; respect `prefers-reduced-motion` (no hover scale).
+
 ## Reminders
 - Relative asset paths (`./styles.css?v=1`); bump `?v=` on every change.
 - `node --check` JS; check CSS brace balance; serve and curl 200 before claiming done.

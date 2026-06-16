@@ -4,7 +4,7 @@ Score every surface 0–10. Used by the `design-auditor` agent and to know when 
 
 ## The 10 qualities (one point each, present AND well-executed)
 
-1. Committed visual direction (not "dark + accent") — see `DIRECTIONS.md`
+1. Committed visual direction grounded in a real lineage, fit to the sector (not "dark + accent") — see `DIRECTIONS.md` + `LINEAGES.md`
 2. Real type pairing with a characterful display face + tabular numerics
 3. Visible structure: hairline rules, felt grid, numbered indices
 4. Intentional, non-uniform spacing rhythm + generous whitespace
@@ -12,8 +12,12 @@ Score every surface 0–10. Used by the `design-auditor` agent and to know when 
 6. A signature element unique to the brand
 7. A designed product visual / data surface as centerpiece (not just copy)
 8. Depth via layered surfaces + restrained shadow
-9. Subtle, purposeful, compositor-friendly motion; reduced-motion safe
+9. Subtle, purposeful, compositor-friendly motion; reduced-motion safe (incl. any 3D — see `3D.md`)
 10. Real interaction states incl. `:focus-visible` everywhere
+
+If a surface uses 3D/WebGL, it scores on quality 8 (depth) only when the 3D is disciplined and
+token-driven per `3D.md`; a generated-looking 3D tell (nebula, gradient blob, bloom-stack) is a
+deduction like any other AI tell, and a canvas with no real fallback is an auto-fail (below).
 
 ## Bands
 
@@ -37,6 +41,10 @@ A blank-on-load page (content hidden behind JS reveal) caps at 2 regardless of h
   separate mobile build instead of one adaptive codebase
 - Absolute asset paths that break `file://`, or stale-cache showing the old version
 - Above-the-fold not fully rendered on first paint
+- **3D with no fallback** — content/centerpiece gated on a WebGL `<canvas>`, a blank rectangle or
+  layout shift while it boots, or a generated-looking 3D tell (particle nebula, gradient blob,
+  bloom-stack, full-bleed canvas behind floating text). The page must be complete with WebGL off
+  (`3D.md`).
 
 ## Definition of done (per surface)
 
@@ -46,4 +54,6 @@ A blank-on-load page (content hidden behind JS reveal) caps at 2 regardless of h
 - hover/focus/active/focus-visible on every interactive element
 - holds at 320 / 768 / 1024 / 1440 with no overflow
 - respects `prefers-reduced-motion`
+- if 3D is used: disciplined + token-driven, sits over a real fallback, page complete with WebGL off,
+  lazy + pinned, `aria-hidden` canvas, no layout shift (`3D.md`)
 - serves HTTP 200; new markers confirmed in served output

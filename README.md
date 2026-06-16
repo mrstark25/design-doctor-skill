@@ -12,8 +12,13 @@ Built and hardened across a real redesign project. Encodes the lessons the hard 
   Content is visible by default; motion is pure-CSS-on-load and additive only.
 - **Serve-and-verify discipline** — relative asset paths (works via `file://` and a server),
   cache-busting, `node --check` + CSS validation, curl for HTTP 200.
-- **Proven reference code** — a reusable editorial-Swiss CSS system, component recipes (live data
-  tables, swap panels, routing diagrams, count-ups), and a starter template.
+- **Disciplined 3D, done right** — an optional, progressively-enhanced Three.js layer that adds real
+  depth without the generated look. Token-driven color, hairline aesthetic, lazy + version-pinned,
+  paused offscreen, reduced-motion safe, and always over a real fallback so the page is complete with
+  WebGL off. The skill explicitly bans the lazy version (particle nebulas, gradient blobs, bloom).
+- **Proven reference code** — a reusable editorial-Swiss CSS system, a ready-to-drop Three.js module,
+  component recipes (live data tables, swap panels, routing diagrams, count-ups, a 3D centerpiece),
+  and a starter template.
 
 ## What's inside
 
@@ -21,13 +26,17 @@ Built and hardened across a real redesign project. Encodes the lessons the hard 
 skills/design-doctor/
   SKILL.md            orchestrator: fetch/read → diagnose → direction → rebuild → serve → verify
   ANTI-AI.md          banned patterns + required qualities (the core file)
-  DIRECTIONS.md       committed visual directions (editorial-Swiss spec + alternatives)
-  WORKFLOW.md         step-by-step, incl. the no-hidden-content rule + serving/caching
+  DIRECTIONS.md       committed directions + crypto-native refs + the sector → lineage playbook
+  LINEAGES.md         design vocabulary: masters (Rams, Vignelli, Müller-Brockmann, Rand, Hara, Ive…)
+                      + modern systems (Stripe, Linear, Vercel, Apple, Material, Carbon, Framer…)
+  WORKFLOW.md         step-by-step, incl. the no-hidden-content rule + serving/caching + the 3D layer
   RUBRIC.md           10-point scoring, bands, auto-fail conditions, definition of done
+  3D.md               Three.js/WebGL contract: when it's justified, fallback rule, 3D AI tells, budget
   reference/
     editorial-swiss.css   reusable primitives (set --H to your brand hue)
-    patterns.md           copy-adaptable recipes for signature components
-    starter.html          minimal page wired to the reference CSS
+    three-scene.js        disciplined, progressively-enhanced Three.js module (token-driven, lazy)
+    patterns.md           copy-adaptable recipes for signature components (incl. 3D centerpiece)
+    starter.html          minimal page wired to the reference CSS + an optional 3D centerpiece
 agents/
   design-auditor.md   read-only reviewer that scores surfaces + flags AI tells / blank-on-load
 ```
@@ -56,7 +65,8 @@ tell you exactly how it verified the result. It keeps a `.bak` of bold rewrites 
 ## Requirements
 
 - Claude Code (skills + subagents support)
-- For serving previews: `python3` (or any static server). Internet for the web fonts.
+- For serving previews: `python3` (or any static server). Internet for the web fonts and, if you use
+  the optional 3D layer, the pinned Three.js ESM CDN (the page stays complete if it's blocked).
 
 ## License
 
